@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="header :: myHeader"></div>
+</head>
+<body class="sb-nav-fixed">
+	<div th:replace="navbar :: myNavbar"></div>
+	<div id="layoutSidenav">
+		<div th:replace="sidebar :: mySidebar"></div>
+		<!-- Form starts from here -->
+		<div id="layoutSidenav_content">
+			<div class="container">
+				<br>
+				<div class="spinner-grow text-muted"></div>
+				<div class="spinner-grow text-primary"></div>
+				<div class="spinner-grow text-success"></div>
+				<div class="spinner-grow text-info"></div>
+				<div class="spinner-grow text-warning"></div>
+				<div class="spinner-grow text-danger"></div>
+				<div class="spinner-grow text-secondary"></div>
+				<div class="spinner-grow text-dark"></div>
+				<div class="spinner-grow text-light"></div>
+				<hr>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+					<li class="breadcrumb-item active">Item Issuance</li>
+				</ol>
+				<form class="needs-validation" th:action="@{/ItemIssuanceCreate}"
+					id="contact_form" th:object="${itemIssuanceDto}" method="post"
+					novalidate>
+					<!-- Text input-->
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('global')}">
+						<ul>
+							<li th:each="err : ${#fields.errors('global')}" th:text="${err}"></li>
+						</ul>
+					</div>
+					<fieldset class="border p-2">
+						<legend class="w-auto"> Issue an item </legend>
+						<!-- Text input-->
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Customer</label>
+							<select class="form-control" id="customerDropDownList" th:field="*{customerName}">
+								<option value="0">Select Customer</option>
+								<option th:each="option : ${customerNames}" th:value="${option}" th:text="${option}"></option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Borrower</label>
+							<select class="form-control" id="stockDropDownList" th:field="*{stockName}">
+								<option value="0">Select Product</option>
+								<option th:each="option : ${stockNames}" th:value="${option}" th:text="${option}"></option>
+							</select>
+						</div>
+						<!-- TextView -->
+						<div class="form-group">
+							<label class="col-md-4 control-label">Item Quantity</label>
+							<div class="col-md-4 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i
+											class="glyphicon glyphicon-user"></i></span>
+									<input name="name"
+										   placeholder="Enter Quantity" th:field="*{quantity}"
+										   class="form-control" type="number" required>
+								</div>
+								<div class="alert alert-danger"
+									 th:if="${#fields.hasErrors('quantity')}"
+									 th:errors="*{quantity}"></div>
+							</div>
+						</div>
+
+						<!-- TextView -->
+
+
+						<!-- TextView -->
+						<div class="form-group">
+							<label class="col-md-4 control-label">Item Price</label>
+							<div class="col-md-4 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i
+											class="glyphicon glyphicon-user"></i></span>
+									<input name="name"
+										   placeholder="Enter Item Price" th:field="*{price}"
+										   class="form-control" type="number" required>
+								</div>
+								<div class="alert alert-danger"
+									 th:if="${#fields.hasErrors('price')}"
+									 th:errors="*{price}"></div>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Is customer paying bill now</label>
+							<select class="form-control" id="billDropDownList" th:field="*{paymentStatus}">
+								<option value="select">Select Product</option>
+								<option value="Yes">Yes</option>
+								<option value="No">No</option>
+							</select>
+						</div>
+
+						<!-- Button -->
+						<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-4">
+								<button id="issueItemBtn" type="submit"
+									class="btn btn-success float-right">Issue Item</button>
+								<button type="reset" class="btn btn-danger">Cancel</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div></div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<div th:replace="footer :: myFooter"></div>
+</body>
+</html>
