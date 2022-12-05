@@ -16,4 +16,7 @@ public class Customer {
     private String customerPhoneNumber;
     private String address;
 
+    @Transient
+    private String paymentStatus;
+
 }

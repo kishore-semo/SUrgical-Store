@@ -22,7 +22,7 @@
 				<hr>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-					<li class="breadcrumb-item active">Inventory Items</li>
+					<li class="breadcrumb-item active">Customers Data</li>
 				</ol>
 				<button style="font-size: 20px" type="button"
 					class="btn btn-outline-dark" id="myButton">
@@ -34,12 +34,9 @@
 						<tr>
 							<th>ID</th>
 							<th>Name</th>
-							<th>Description</th>
-							<th>Price</th>
-							<th>Quantity</th>
-							<th>Fine Rate</th>
-
-							<th colspan="2" style="text-align: center">Options</th>
+							<th>Phone Number</th>
+							<th>Address</th>
+							<th>Payments Status</th>
 						</tr>
 					</thead>
 					<tbody th:if="${#lists.isEmpty(itemDtoList)}">
@@ -49,17 +46,11 @@
 					</tbody>
 					<tbody id="myTable">
 						<tr th:each="itemDto : ${itemDtoList}">
-							<td th:text="${itemDto.stockId}"></td>
-							<td th:text="${itemDto.name}"></td>
-							<td th:text="${itemDto.description}"></td>
-							<td th:text="${itemDto.salePrice}"></td>
-							<td th:text="${itemDto.quantity}"></td>
-							<td th:text="${itemDto.originalPrice}"></td>
-
-							<td><a th:href="@{/ItemEdit/{id}(id=${itemDto.stockId})}"
-								class="btn btn-primary"> Edit </a></td>
-							<td><a th:href="@{/ItemDelete/{id}(id=${itemDto.stockId})}"
-								class="btn btn-danger"> Delete </a></td>
+							<td th:text="${itemDto.customerId}"></td>
+							<td th:text="${itemDto.customerName}"></td>
+							<td th:text="${itemDto.customerPhoneNumber}"></td>
+							<td th:text="${itemDto.address}"></td>
+							<td th:text="${itemDto.paymentStatus}"></td>
 						</tr>
 					</tbody>
 				</table>

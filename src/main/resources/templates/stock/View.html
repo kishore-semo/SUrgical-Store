@@ -39,7 +39,6 @@
 							<th>Quantity</th>
 							<th>Fine Rate</th>
 
-							<th colspan="2" style="text-align: center">Options</th>
 						</tr>
 					</thead>
 					<tbody th:if="${#lists.isEmpty(itemDtoList)}">
@@ -56,10 +55,7 @@
 							<td th:text="${itemDto.quantity}"></td>
 							<td th:text="${itemDto.originalPrice}"></td>
 
-							<td><a th:href="@{/ItemEdit/{id}(id=${itemDto.stockId})}"
-								class="btn btn-primary"> Edit </a></td>
-							<td><a th:href="@{/ItemDelete/{id}(id=${itemDto.stockId})}"
-								class="btn btn-danger"> Delete </a></td>
+
 						</tr>
 					</tbody>
 				</table>

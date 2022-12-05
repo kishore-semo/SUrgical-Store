@@ -1,6 +1,7 @@
 package com.kishore.semo_surgicals.Controller;
 
 
+import com.kishore.semo_surgicals.Model.Stock;
 import com.kishore.semo_surgicals.Model.TransactionDTO;
 import com.kishore.semo_surgicals.Model.Transactions;
 import com.kishore.semo_surgicals.Repository.CustomerRepository;
@@ -68,15 +69,22 @@ public class TransactionsController {
 		if (result.hasErrors()){
 			return "/sale/Create";
 		}else{
+			Stock stock = stockRepository.findByName(transactionsDto.getStockName());
 			Transactions transactions = new Transactions();
 //			transactions.setTransactionId(1L);
 			transactions.setPrice(transactionsDto.getPrice());
 			transactions.setPaymentStatus(transactionsDto.getPaymentStatus().equals("Yes"));
 			transactions.setQuantity(transactionsDto.getQuantity());
 			transactions.setCustomer(customerRepository.findByCustomerName(transactionsDto.getCustomerName()).getCustomerId());
-			transactions.setStock(stockRepository.findByName(transactionsDto.getStockName()).getStockId());
-			transactionsRepository.save(transactions);
-			return "redirect:/ItemIssuanceView";
+			transactions.setStock(stock.getStockId());
+			if (transactions.getQuantity()>stock.getQuantity()){
+				ObjectError error = new ObjectError("globalError", "There is only "+stock.getQuantity()+" quantity is remaining in the stock");
+				result.addError(error);
+				return "/sale/Create";
+			}else {
+				transactionsRepository.save(transactions);
+				return "redirect:/ItemIssuanceView";
+			}
 		}
 	}
 

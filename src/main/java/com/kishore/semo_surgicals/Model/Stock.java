@@ -21,5 +21,8 @@ public class Stock {
     private BigDecimal salePrice;
 
 
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Controller
 public class StockController {
@@ -22,6 +24,16 @@ public class StockController {
 
 	@GetMapping("/ItemView")
 	public String View(Model model) {
+		List<Stock> stockList = stockRepository.findAll();
+		int counter = 0;
+		for (Stock stock : stockList){
+			if (stock.getQuantity()<5){
+				stock.setDescription("You have less stock in your inventory please purchase from the buyers");
+			}else{
+				stock.setDescription("Your current stock is "+ stock.getQuantity());
+			}
+			stockList.set(counter,stock);
+		}
 		model.addAttribute("itemDtoList", stockRepository.findAll());
 		return "/stock/View";
 	}
@@ -38,7 +50,6 @@ public class StockController {
 
 	@PostMapping("/ItemCreate")
 	public String Create(@ModelAttribute("itemDto") Stock itemDto, BindingResult result, Model model) {
-
 		stockRepository.save(itemDto);
 		return "redirect:/ItemView";
 	}

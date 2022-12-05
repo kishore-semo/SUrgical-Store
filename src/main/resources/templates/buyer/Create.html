@@ -23,9 +23,9 @@
 				<hr>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-					<li class="breadcrumb-item active">Add Inventory Item</li>
+					<li class="breadcrumb-item active">Add inventory from buyer</li>
 				</ol>
-				<form class="needs-validation" th:action="@{/createCustomer}"
+				<form class="needs-validation" th:action="@{/createBuyer}"
 					th:object="${itemDto}" method="post" novalidate>
 					<!-- Text input-->
 					<div class="alert alert-danger"
@@ -35,64 +35,72 @@
 						</ul>
 					</div>
 					<fieldset class="border p-2">
-						<legend class="w-auto"> Add Inventory Item </legend>
+						<legend class="w-auto"> Buyer Inventory</legend>
 						<div class="form-group">
-							<label class="col-md-4 control-label">Customer Name</label>
+							<label class="col-md-4 control-label">Buyer Name</label>
 							<div class="col-md-4 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-user"></i></span> <input name="customerName"
-										placeholder="Enter customer Name" th:field="*{customerName}"
+										class="glyphicon glyphicon-user"></i></span> <input name="buyerName"
+										placeholder="Enter Buyer Name" th:field="*{buyerName}"
 										class="form-control" type="text" required>
 								</div>
 								<div class="alert alert-danger"
-									th:if="${#fields.hasErrors('customerName')}"
-									th:errors="*{customerName}"></div>
+									th:if="${#fields.hasErrors('buyerName')}"
+									th:errors="*{buyerName}"></div>
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label">Phone Number</label>
+							<label class="col-md-4 control-label">Buyer Address</label>
 							<div class="col-md-4 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i
 											class="glyphicon glyphicon-user"></i></span>
 									<input name="description"
-										   placeholder="Enter phone number" th:field="*{customerPhoneNumber}"
+										   placeholder="Enter buyer address" th:field="*{buyerAddress}"
 										   class="form-control" type="text" required>
 								</div>
 								<div class="alert alert-danger"
-									 th:if="${#fields.hasErrors('customerPhoneNumber')}"
-									 th:errors="*{customerPhoneNumber}"></div>
+									 th:if="${#fields.hasErrors('buyerAddress')}"
+									 th:errors="*{buyerAddress}"></div>
 							</div>
 						</div>
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label">Address</label>
+							<label class="col-md-4 control-label">Product Quantity</label>
 							<div class="col-md-4 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-user"></i></span> <input name="address"
-										placeholder="Enter address" th:field="*{address}"
-										class="form-control" type="text" step="any" required min="1">
+											class="glyphicon glyphicon-user"></i></span>
+									<input name="description"
+										   placeholder="Enter product quantity" th:field="*{quantity}"
+										   class="form-control" type="number" required>
 								</div>
 								<div class="alert alert-danger"
-									th:if="${#fields.hasErrors('address')}"
-									th:errors="*{address}"></div>
+									 th:if="${#fields.hasErrors('quantity')}"
+									 th:errors="*{quantity}"></div>
 							</div>
 						</div>
 						<!-- Text input-->
+						<div class="form-group">
+							<label class="col-md-4 control-label">Product</label>
+							<select class="form-control" id="stockDropDownList" th:field="*{product}">
+								<option value="0">Select Product</option>
+								<option th:each="option : ${itemTypeList}" th:value="${option}" th:text="${option}"></option>
+							</select>
+						</div>
 
-						<!-- Select Basic -->
 						<!-- Button -->
 						<div class="form-group">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-4">
 								<button id="resetBtn" type="reset" class="btn btn-danger ">Reset</button>
 								<button id="addBtn" type="submit"
-									class="btn btn-success float-right">Add customer</button>
+									class="btn btn-success float-right">Add to inventory</button>
 							</div>
 						</div>
+
 					</fieldset>
 				</form>
 			</div>
